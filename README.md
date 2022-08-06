@@ -22,7 +22,7 @@ Admin API docs:
 
 ## Maintainer
 
-This library was created and supported by [Playtini](https://playtini.ua).
+This library is created and supported by [Playtini](https://playtini.ua).
 
 We're hiring marketers (FB, Tiktok, UAC, in-app, Google) and developers (PHP, JS): [playtini.ua/jobs](https://playtini.ua/jobs)
 
