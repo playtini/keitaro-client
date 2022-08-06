@@ -20,16 +20,36 @@ class KeitaroHttpClient
         'verify_host' => false,
     ];
 
+    private string $adminApiKey = '';
+
     public function __construct(
         private readonly HttpClientInterface $httpClient,
         private readonly string $trackerUrl,
     ) {
     }
 
+    public function setAdminApiKey(string $adminApiKey): self
+    {
+        $this->adminApiKey = $adminApiKey;
+
+        return $this;
+    }
+
     public function clientApiRequest(array $params, array $options = []): ResponseInterface
     {
         $method = Request::METHOD_POST;
         $url = sprintf('%s/click_api/v3', $this->trackerUrl);
+        $options = $this->buildOptions($method, $params, $options);
+
+        return $this->httpClient->request($method, $url, $options);
+    }
+
+    public function adminApiRequest(string $method, string $endpoint, array $params = [], array $options = []): ResponseInterface
+    {
+        $url = sprintf('%s/admin_api/v1/%s', $this->trackerUrl, ltrim($endpoint, '/'));
+
+        $options['headers'] = $options['headers'] ?? [];
+        $options['headers']['Api-Key'] = $this->adminApiKey;
         $options = $this->buildOptions($method, $params, $options);
 
         return $this->httpClient->request($method, $url, $options);

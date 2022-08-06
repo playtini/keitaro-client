@@ -25,3 +25,21 @@ Admin API docs:
 This library was created and supported by [Playtini](https://playtini.ua).
 
 We're hiring marketers (FB, Tiktok, UAC, in-app, Google) and developers (PHP, JS): [playtini.ua/jobs](https://playtini.ua/jobs)
+
+## Admin API
+
+Usage:
+
+```
+
+use Playtini\KeitaroClient\AdminApi\KeitaroAdminApiClient;
+use Playtini\KeitaroClient\Http\KeitaroHttpClient;
+use Symfony\Component\HttpClient\CurlHttpClient;
+
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$keitaroHttpClient = new KeitaroHttpClient(new CurlHttpClient(), 'https://keitaro.example.com'); // change to your TDS domain
+$adminClient = new KeitaroAdminApiClient($keitaroHttpClient, 'YOUR_API_KEY_HERE');
+
+print_r($adminClient->campaigns());
+```
