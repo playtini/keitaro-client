@@ -28,8 +28,12 @@ class KeitaroClickApiClient
         public readonly Request $request,
         public readonly string $campaignToken,
         array $params = [],
+        bool $setParamsFromQuery = true,
     ) {
         $this->params = new ParameterBag(array_merge($params, $this->buildParams()));
+        if ($setParamsFromQuery) {
+            $this->setParamsFromQuery();
+        }
     }
 
     public function setParamsFromQuery(): self
@@ -45,7 +49,7 @@ class KeitaroClickApiClient
         return $this;
     }
 
-    public function execute(): Response
+    public function getResponse(): Response
     {
         $apiResult = $this->lastResult ?? $this->request();
 
