@@ -13,6 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Based on KClient 3.15
  *
+ * Differences:
+ * - doesn't use global objects directly (bad practice) - uses Request object to get information
+ * - doesn't print to output or sends headers (bad practice) - uses Response object which you can process before sending to user
+ * - params property is ParameterBag with get, set, all and other methods
+ * - there are external dependencies, not one-file solution
+ * - doesn't allow to save and restore result from session
+ *
  * @url https://v9.help.keitaro.io/en/campaign-integrations/kclient-php.html
  */
 class KeitaroClickApiClient
