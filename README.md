@@ -1,15 +1,21 @@
-Keitaro Client
-==============
+Keitaro PHP Client
+==================
 
 [Keitaro](https://keitaro.io) is a tool for affiliate and performance marketing.
 
-It has 2 APIs: Click API, Admin API
+It has 2 APIs: Click API, Admin API.
 
 ## Maintainer
 
 This library is created and supported by [Playtini](https://playtini.ua).
 
 We're hiring marketers (FB, Tiktok, UAC, in-app, Google) and developers (PHP, JS): [playtini.ua/jobs](https://playtini.ua/jobs)
+
+## Install
+
+```bash
+composer require playtini/keitaro-client
+```
 
 ## Click API
 
@@ -23,7 +29,7 @@ Click API docs:
 * https://blog.keitaro.io/en/kclient-php-an-in-depth-article/
 
 Usage:
-```
+```php
 use Playtini\KeitaroClient\ClickApi\KeitaroClickApiClient;
 use Playtini\KeitaroClient\Http\KeitaroHttpClient;
 use Symfony\Component\HttpClient\CurlHttpClient;
@@ -51,8 +57,7 @@ Admin API docs:
 
 Usage:
 
-```
-
+```php
 use Playtini\KeitaroClient\AdminApi\KeitaroAdminApiClient;
 use Playtini\KeitaroClient\Http\KeitaroHttpClient;
 use Symfony\Component\HttpClient\CurlHttpClient;
