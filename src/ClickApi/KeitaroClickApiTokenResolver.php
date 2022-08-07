@@ -15,7 +15,8 @@ class KeitaroClickApiTokenResolver
 
     public function getCampaignToken(string $campaignAlias): ?string
     {
-        $cacheItem = $this->cache->getItem(__METHOD__);
+        $cacheKeyWithoutReservedCharacters = md5(__METHOD__);
+        $cacheItem = $this->cache->getItem($cacheKeyWithoutReservedCharacters);
 
         if ($cacheItem->isHit()) {
             $value = $cacheItem->get();
