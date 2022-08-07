@@ -8,7 +8,8 @@
         "php": "^8.1",
         "symfony/http-client": "^6.1",
         "symfony/http-foundation": "^6.1",
-        "gupalo/dateutils": "^1.13"
+        "gupalo/dateutils": "^1.13",
+        "symfony/cache": "^6.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"
