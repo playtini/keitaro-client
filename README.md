@@ -44,6 +44,11 @@ $response = $clickApiClient->getResponse();
 $response->send();
 ```
 
+If you don't know campaign token but know campaign alias (unique URL part in TDS link - like
+https://keitaro.example.com/THIS_IS_ALIAS ) then use `KeitaroClickApiTokenResolver` to get token via Admin API.
+
+For dependency injection you can use `KeitaroClickApiClientFactory`.
+
 ## Admin API
 
 View, edit data at Keitaro without using UI.
@@ -68,4 +73,61 @@ $keitaroHttpClient = new KeitaroHttpClient(new CurlHttpClient(), 'https://keitar
 $adminClient = new KeitaroAdminApiClient($keitaroHttpClient, 'ADMIN_API_KEY_HERE'); // change api key
 
 print_r($adminClient->campaigns());
+```
+
+## Symfony config example
+
+`config/services.yaml`
+
+```yaml
+    Playtini\KeitaroClient\Http\KeitaroHttpClient:
+        bind:
+            $trackerUrl: '%env(KEITARO_TRACKER_URL)%'
+
+    Playtini\KeitaroClient\AdminApi\KeitaroAdminApiClient:
+        bind:
+            $adminApiKey: '%env(KEITARO_ADMIN_API_KEY)%'
+
+    Playtini\KeitaroClient\ClickApi\KeitaroClickApiClientFactory: {public: true}
+    Playtini\KeitaroClient\ClickApi\KeitaroClickApiTokenResolver: {public: true}
+```
+
+```.env
+KEITARO_TRACKER_URL=https://keitaro.example.com
+KEITARO_ADMIN_API_KEY=aaa111bbb222aaa111bbb222
+```
+Don't forget to set real values in environment variables.
+
+Click API controller method
+```php
+public function __invoke(
+    string $slug,
+    Request $request,
+    KeitaroClickApiClientFactory $clientFactory,
+    KeitaroClickApiTokenResolver $apiTokenResolver,
+): Response
+{
+    $client = $clientFactory->create(
+        request: $request,
+        campaignToken: $apiTokenResolver->getCampaignToken($slug), // it's cached
+    );
+    $client->params->set('log', 1);
+
+    return $client->getResponse();
+}
+```
+
+Admin API controller method
+```php
+public function __invoke(KeitaroAdminApiClient $keitaroAdminApiClient): JsonResponse
+{
+    $campaigns = $keitaroAdminApiClient->campaigns();
+
+    $tokens = [];
+    foreach ($campaigns as $campaign) {
+        $tokens[$campaign->alias] = $campaign->token;
+    }
+
+    return new JsonResponse($tokens);
+}
 ```
