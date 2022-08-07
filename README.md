@@ -59,7 +59,6 @@ Admin API docs:
 * https://blog.keitaro.io/en/admin-api-article/
 * https://admin-api.docs.keitaro.io/
 
-
 Usage:
 
 ```php
@@ -74,6 +73,8 @@ $adminClient = new KeitaroAdminApiClient($keitaroHttpClient, 'ADMIN_API_KEY_HERE
 
 print_r($adminClient->campaigns());
 ```
+
+Warning! Only several endpoints are implemented. If you need more please add an issue, we'll make them sooner.
 
 ## Symfony config example
 
