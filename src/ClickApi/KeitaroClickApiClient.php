@@ -32,15 +32,12 @@ class KeitaroClickApiClient
 
     public function __construct(
         public readonly KeitaroHttpClient $keitaroHttpClient,
-        public readonly Request $request,
-        public readonly string $campaignToken,
+        private readonly Request $request,
+        ?string $campaignToken = null, // if you not set it here then don't forget to set it later: $client->params->set('token', 'YOUR_TOKEN')
         array $params = [],
-        bool $setParamsFromQuery = true,
+        bool $setParamsFromQuery = true
     ) {
-        $this->params = new ParameterBag(array_merge($params, $this->buildParams()));
-        if ($setParamsFromQuery) {
-            $this->setParamsFromQuery();
-        }
+        $this->params = new ParameterBag($this->buildParams($params, $campaignToken, $setParamsFromQuery));
     }
 
     public function setParamsFromQuery(): self
@@ -125,11 +122,18 @@ class KeitaroClickApiClient
         return $options;
     }
 
-    private function buildParams(): array
+    private function buildParams(array $params = [], string $campaignToken = null, bool $setParamsFromQuery = true): array
     {
-        $result = [];
+        $result = $params;
 
-        $result['token'] = $this->campaignToken;
+        if ($setParamsFromQuery) {
+            $this->setParamsFromQuery();
+        }
+
+        if ($campaignToken !== null) {
+            $result['token'] = $campaignToken;
+        }
+
         $result['version'] = 3;
         $result['info'] = 1;
         $result['ip'] = $this->request->getClientIp();
