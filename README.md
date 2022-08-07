@@ -65,7 +65,7 @@ use Symfony\Component\HttpClient\CurlHttpClient;
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $keitaroHttpClient = new KeitaroHttpClient(new CurlHttpClient(), 'https://keitaro.example.com'); // change to your TDS domain
-$adminClient = new KeitaroAdminApiClient($keitaroHttpClient, 'YOUR_API_KEY_HERE'); // change api key
+$adminClient = new KeitaroAdminApiClient($keitaroHttpClient, 'ADMIN_API_KEY_HERE'); // change api key
 
 print_r($adminClient->campaigns());
 ```
