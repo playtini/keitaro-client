@@ -53,9 +53,9 @@ class KeitaroClickApiClient
         return $this;
     }
 
-    public function getResponse(): Response
+    public function getResponse(?KeitaroClickApiResult $apiResult = null): Response
     {
-        $apiResult = $this->lastResult ?? $this->request();
+        $apiResult = $apiResult ?? $this->lastResult ?? $this->getResult();
 
         $content = $apiResult->body;
         if (
@@ -78,7 +78,7 @@ class KeitaroClickApiClient
         return $response;
     }
 
-    public function request(): KeitaroClickApiResult
+    public function getResult(): KeitaroClickApiResult
     {
         $options = $this->buildRequestOptions();
 

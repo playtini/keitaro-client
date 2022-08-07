@@ -9,11 +9,29 @@ class KeitaroClickApiTokenResolver
 {
     public function __construct(
         private readonly KeitaroAdminApiClient $adminApiClient,
-        private readonly CacheItemPoolInterface $cache,
+        private readonly ?CacheItemPoolInterface $cache = null,
     ) {
     }
 
     public function getCampaignToken(string $campaignAlias): ?string
+    {
+        $value = $this->cache ? $this->getCachedValue() : $this->getValue();
+
+        return $value[$campaignAlias] ?? null;
+    }
+
+    private function getValue(): array
+    {
+        $value = [];
+        $campaigns = $this->adminApiClient->campaigns();
+        foreach ($campaigns as $campaign) {
+            $value[$campaign->alias] = $campaign->token;
+        }
+
+        return $value;
+    }
+
+    private function getCachedValue(): array
     {
         $cacheKeyWithoutReservedCharacters = md5(__METHOD__);
         $cacheItem = $this->cache->getItem($cacheKeyWithoutReservedCharacters);
@@ -21,17 +39,12 @@ class KeitaroClickApiTokenResolver
         if ($cacheItem->isHit()) {
             $value = $cacheItem->get();
         } else {
-            $value = [];
-
-            $campaigns = $this->adminApiClient->campaigns();
-            foreach ($campaigns as $campaign) {
-                $value[$campaign->alias] = $campaign->token;
-            }
+            $value = $this->getValue();
 
             $cacheItem->set($value);
             $this->cache->save($cacheItem);
         }
 
-        return $value[$campaignAlias] ?? null;
+        return $value;
     }
 }
