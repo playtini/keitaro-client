@@ -2,6 +2,8 @@
 
 namespace Playtini\KeitaroClient\ClickApi;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class KeitaroClickApiResult
 {
     public function __construct(
@@ -24,8 +26,20 @@ class KeitaroClickApiResult
         public readonly ?string $subId = null,
         public readonly ?bool $isBot = null,
         public readonly ?string $token = null,
+        public ?string $offerUrl = null,
         public readonly array $log = [],
     ) {
+    }
+
+    public function isEmpty(): bool
+    {
+        return (
+            (string)$this->body === '' &&
+            (
+                $this->status === Response::HTTP_OK ||
+                $this->status === null
+            )
+        );
     }
 
     public static function create(array $item): self

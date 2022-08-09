@@ -44,6 +44,25 @@ class KeitaroHttpClient
         return $this->httpClient->request($method, $url, $options);
     }
 
+    public function getRedirectUrl(?string $url): ?string
+    {
+        $result = null;
+        if ($url) {
+            $response = $this->httpClient->request(Request::METHOD_GET, $url, self::DEFAULT_OPTS);
+            $result = $response->getHeaders()['location'][0] ?? null;
+        }
+
+        return $result;
+    }
+
+    public function buildOfferUrl(string $token): string
+    {
+        return sprintf('%s/?%s', $this->trackerUrl, http_build_query([
+            '_lp' => 1,
+            '_token' => $token,
+        ]));
+    }
+
     public function adminApiRequest(string $method, string $endpoint, array $params = [], array $options = []): ResponseInterface
     {
         $url = sprintf('%s/admin_api/v1/%s', $this->trackerUrl, ltrim($endpoint, '/'));

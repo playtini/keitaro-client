@@ -7,6 +7,7 @@ namespace Playtini\KeitaroClient\ClickApi;
 use Playtini\KeitaroClient\Http\KeitaroHttpClient;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -50,7 +51,7 @@ class KeitaroClickApiClient
         return $this;
     }
 
-    public function getResponse(?KeitaroClickApiResult $apiResult = null): Response
+    public function getResponse(?KeitaroClickApiResult $apiResult = null, $redirectToOffer = true): Response
     {
         $apiResult = $apiResult ?? $this->lastResult ?? $this->getResult();
 
@@ -62,7 +63,17 @@ class KeitaroClickApiClient
             $content = base64_decode($content);
         }
 
-        $response = new Response($content, $apiResult->status, $apiResult->headers);
+        // sometimes Keitaro just selects offer but doesn't redirect user
+        $redirectUrl = null;
+        if ($redirectToOffer && $apiResult->offerUrl && $apiResult->isEmpty()) {
+            $redirectUrl = $this->keitaroHttpClient->getRedirectUrl($apiResult->offerUrl);
+        }
+
+        if ($redirectUrl) {
+            $response = new RedirectResponse($redirectUrl);
+        } else {
+            $response = new Response($content, $apiResult->status, $apiResult->headers);
+        }
 
         foreach ($apiResult->cookies as $k => $v) {
             $cookieHost = preg_match('#^www\.#i', $this->request->getHost()) ? preg_replace('#^www\.#i', '.', $this->request->getHost()) : null;
@@ -82,7 +93,10 @@ class KeitaroClickApiClient
         $response = $this->keitaroHttpClient->clientApiRequest($this->params->all(), $options);
         $responseData = $response->toArray();
 
-        return KeitaroClickApiResult::create($responseData);
+        $result = KeitaroClickApiResult::create($responseData);
+        $result->offerUrl = $this->keitaroHttpClient->buildOfferUrl($result->token);
+
+        return $result;
     }
 
     private function isPrefetchDetected(): bool
