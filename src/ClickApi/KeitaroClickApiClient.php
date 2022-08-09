@@ -92,7 +92,7 @@ class KeitaroClickApiClient
 
         $response = $this->keitaroHttpClient->clientApiRequest($this->params->all(), $options);
         $responseData = $response->toArray();
-        $responseData['offer_url'] = $this->keitaroHttpClient->buildOfferUrl($responseData['token'] ?? '');
+        $responseData['offer_url'] = $this->keitaroHttpClient->buildOfferUrl($responseData['info']['token'] ?? '');
 
         return KeitaroClickApiResult::create($responseData);
     }
