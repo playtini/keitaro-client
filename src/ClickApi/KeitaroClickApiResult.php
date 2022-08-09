@@ -26,7 +26,7 @@ class KeitaroClickApiResult
         public readonly ?string $subId = null,
         public readonly ?bool $isBot = null,
         public readonly ?string $token = null,
-        public ?string $offerUrl = null,
+        public readonly ?string $offerUrl = null,
         public readonly array $log = [],
     ) {
     }
@@ -101,6 +101,7 @@ class KeitaroClickApiResult
             subId: $info['sub_id'],
             isBot: ($isBot !== null) ? (bool)$isBot : null,
             token: $info['token'],
+            offerUrl: $item['offer_url'] ?? null,
             log: $item['log'] ?? [],
         );
     }

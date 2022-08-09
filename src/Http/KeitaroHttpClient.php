@@ -55,8 +55,12 @@ class KeitaroHttpClient
         return $result;
     }
 
-    public function buildOfferUrl(string $token): string
+    public function buildOfferUrl(?string $token): ?string
     {
+        if (!$token) {
+            return null;
+        }
+
         return sprintf('%s/?%s', $this->trackerUrl, http_build_query([
             '_lp' => 1,
             '_token' => $token,

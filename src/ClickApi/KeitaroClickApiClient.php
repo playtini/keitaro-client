@@ -92,11 +92,9 @@ class KeitaroClickApiClient
 
         $response = $this->keitaroHttpClient->clientApiRequest($this->params->all(), $options);
         $responseData = $response->toArray();
+        $responseData['offer_url'] = $this->keitaroHttpClient->buildOfferUrl($responseData['token'] ?? '');
 
-        $result = KeitaroClickApiResult::create($responseData);
-        $result->offerUrl = $this->keitaroHttpClient->buildOfferUrl($result->token);
-
-        return $result;
+        return KeitaroClickApiResult::create($responseData);
     }
 
     private function isPrefetchDetected(): bool
