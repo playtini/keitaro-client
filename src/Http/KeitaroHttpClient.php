@@ -50,7 +50,7 @@ class KeitaroHttpClient
         if ($url) {
             $options = array_merge(self::DEFAULT_OPTS, ['max_redirects' => 0]);
             $response = $this->httpClient->request(Request::METHOD_GET, $url, $options);
-            $result = $response->getHeaders()['location'][0] ?? null;
+            $result = $response->getHeaders(false)['location'][0] ?? null;
         }
 
         return $result;
