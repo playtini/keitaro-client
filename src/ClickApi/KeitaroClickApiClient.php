@@ -42,12 +42,9 @@ class KeitaroClickApiClient
 
     public function setParamsFromQuery(): self
     {
-        $queryParams = $this->request->query->all();
-
-        foreach ($queryParams as $k => $v) {
-            if (!in_array($k, self::SYSTEM_PARAMS, true)) {
-                $this->params->set($k, $v);
-            }
+        $params = $this->extractParamsFromQuery();
+        foreach ($params as $k => $v) {
+            $this->params->set($k, $v);
         }
 
         return $this;
@@ -127,7 +124,7 @@ class KeitaroClickApiClient
         $result = $params;
 
         if ($setParamsFromQuery) {
-            $this->setParamsFromQuery();
+            $result = array_merge($result, $this->extractParamsFromQuery());
         }
 
         if ($campaignToken !== null) {
@@ -149,6 +146,20 @@ class KeitaroClickApiClient
         $result['kversion'] = '3.4'; // strange, but it differes from KClient version
         if ($this->isPrefetchDetected()) {
             $result['prefetch'] = 1;
+        }
+
+        return $result;
+    }
+
+    private function extractParamsFromQuery(): array
+    {
+        $queryParams = $this->request->query->all();
+
+        $result = [];
+        foreach ($queryParams as $k => $v) {
+            if (!in_array($k, self::SYSTEM_PARAMS, true)) {
+                $result[$k] = $v;
+            }
         }
 
         return $result;
