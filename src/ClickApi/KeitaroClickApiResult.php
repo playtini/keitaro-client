@@ -15,12 +15,12 @@ class KeitaroClickApiResult
         public readonly array $cookies = [],
         public readonly ?string $uniquenessCookie = null,
         public readonly ?bool $uniquenessCampaign = null,
-        public readonly ?bool $uniquenessStream = null,
+        public readonly ?bool $uniquenessFlow = null,
         public readonly ?bool $uniquenessGlobal = null,
         public readonly ?string $type = null, // values: "http"
         public readonly ?string $redirectUrl = null, // key "url"
         public readonly ?int $campaignId = null,
-        public readonly ?int $streamId = null,
+        public readonly ?int $flowId = null,
         public readonly ?int $offerId = null,
         public readonly ?int $landingId = null,
         public readonly ?string $subId = null,
@@ -76,7 +76,7 @@ class KeitaroClickApiResult
         }
 
         $uniquenessCampaign = $infoUniqueness['campaign'] ?? null;
-        $uniquenessStream = $infoUniqueness['stream'] ?? null;
+        $uniquenessFlow = $infoUniqueness['stream'] ?? null;
         $uniquenessGlobal = $infoUniqueness['global'] ?? null;
 
         $isBot = $info['is_bot'] ?? null;
@@ -90,12 +90,12 @@ class KeitaroClickApiResult
             cookies: $cookies,
             uniquenessCookie: $item['uniqueness_cookie'],
             uniquenessCampaign: ($uniquenessCampaign !== null) ? (bool)$uniquenessCampaign : null,
-            uniquenessStream: ($uniquenessStream !== null) ? (bool)$uniquenessStream : null,
+            uniquenessFlow: ($uniquenessFlow !== null) ? (bool)$uniquenessFlow : null,
             uniquenessGlobal: ($uniquenessGlobal !== null) ? (bool)$uniquenessGlobal : null,
             type: $info['type'],
             redirectUrl: $info['url'], // yes, it differs from property name "redirectUrl"
             campaignId: $info['campaign_id'],
-            streamId: $info['stream_id'],
+            flowId: $info['stream_id'],
             offerId: $info['offer_id'],
             landingId: $info['landing_id'],
             subId: $info['sub_id'],
