@@ -8,6 +8,7 @@ namespace Playtini\KeitaroClient\AdminApi;
 use Playtini\KeitaroClient\AdminApi\Model\Campaign;
 use Playtini\KeitaroClient\AdminApi\Model\Flow;
 use Playtini\KeitaroClient\AdminApi\Model\Report;
+use Playtini\KeitaroClient\AdminApi\Request\CampaignCostRequest;
 use Playtini\KeitaroClient\AdminApi\Request\ReportsRequest;
 use Playtini\KeitaroClient\Http\KeitaroHttpClient;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,9 +60,27 @@ class KeitaroAdminApiClient
         return array_map(static fn($a) => Flow::create($a), $response->toArray());
     }
 
+    public function campaignUpdateCosts(int $campaignId, CampaignCostRequest $campaignCostRequest): void
+    {
+        $response = $this->keitaroHttpClient->adminApiRequest(
+            method: Request::METHOD_POST,
+            endpoint: sprintf('/campaigns/%s/update_costs', $campaignId),
+            params: $campaignCostRequest
+        );
+
+        $result = $response->toArray();
+        if (empty($result['success'])) {
+            throw new \RuntimeException('invalid_api_request', ['method' => __METHOD__, 'response' => $response->getContent()]);
+        }
+    }
+
     public function reportBuild(ReportsRequest $reportsRequest): Report
     {
-        $response = $this->keitaroHttpClient->adminApiRequest(Request::METHOD_POST, '/report/build', $reportsRequest);
+        $response = $this->keitaroHttpClient->adminApiRequest(
+            method: Request::METHOD_POST,
+            endpoint: '/report/build',
+            params: $reportsRequest,
+        );
 
         return Report::create($response->toArray());
     }
