@@ -10,4 +10,13 @@ class Report
         public readonly array $meta, // string[]
     ) {
     }
+
+    public static function create(array $a): self
+    {
+        return new self(
+            rows: $a['rows'] ?? [],
+            total: $a['total'] ?? 0,
+            meta: $a['meta'] ?? [],
+        );
+    }
 }

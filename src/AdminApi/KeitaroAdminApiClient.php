@@ -7,6 +7,8 @@ namespace Playtini\KeitaroClient\AdminApi;
 
 use Playtini\KeitaroClient\AdminApi\Model\Campaign;
 use Playtini\KeitaroClient\AdminApi\Model\Flow;
+use Playtini\KeitaroClient\AdminApi\Model\Report;
+use Playtini\KeitaroClient\AdminApi\Request\ReportsRequest;
 use Playtini\KeitaroClient\Http\KeitaroHttpClient;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -55,5 +57,12 @@ class KeitaroAdminApiClient
         $response = $this->keitaroHttpClient->adminApiRequest(Request::METHOD_GET, sprintf('campaigns/%s/streams', $campaignId));
 
         return array_map(static fn($a) => Flow::create($a), $response->toArray());
+    }
+
+    public function reportBuild(ReportsRequest $reportsRequest): Report
+    {
+        $response = $this->keitaroHttpClient->adminApiRequest(Request::METHOD_POST, '/report/build', $reportsRequest);
+
+        return Report::create($response->toArray());
     }
 }

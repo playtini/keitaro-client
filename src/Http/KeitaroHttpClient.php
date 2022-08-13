@@ -68,8 +68,12 @@ class KeitaroHttpClient
         ]));
     }
 
-    public function adminApiRequest(string $method, string $endpoint, array $params = [], array $options = []): ResponseInterface
+    public function adminApiRequest(string $method, string $endpoint, \JsonSerializable|array $params = [], array $options = []): ResponseInterface
     {
+        if ($params instanceof \JsonSerializable) {
+            $params = $params->jsonSerialize();
+        }
+
         $url = sprintf('%s/admin_api/v1/%s', $this->trackerUrl, ltrim($endpoint, '/'));
 
         $options['headers'] = $options['headers'] ?? [];
@@ -88,7 +92,8 @@ class KeitaroHttpClient
 
         $result = self::DEFAULT_OPTS;
         if (in_array($method, [Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH], true)) {
-            $result = array_merge($result, ['body' => http_build_query($params)]);
+            $result = array_merge($result, ['json' => $params]);
+            $options['headers']['content-type'] = 'application/json';
         }
         $result = array_merge($result, $options);
 

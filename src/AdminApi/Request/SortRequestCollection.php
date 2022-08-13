@@ -2,10 +2,10 @@
 
 namespace Playtini\KeitaroClient\AdminApi\Request;
 
-class SortRequestCollection
+class SortRequestCollection implements \JsonSerializable
 {
     /** @var SortRequest[] */
-    private array $items;
+    private array $items = [];
 
     public function __construct(
         array $items
@@ -23,5 +23,15 @@ class SortRequestCollection
     public function all(): array
     {
         return $this->items;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $result = [];
+        foreach ($this->items as $item) {
+            $result[] = $item->jsonSerialize();
+        }
+
+        return $result;
     }
 }
