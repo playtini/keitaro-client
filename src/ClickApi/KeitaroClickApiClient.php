@@ -36,7 +36,8 @@ class KeitaroClickApiClient
         private readonly Request $request,
         ?string $campaignToken = null, // if you not set it here then don't forget to set it later: $client->params->set('token', 'YOUR_TOKEN')
         array $params = [],
-        bool $setParamsFromQuery = true
+        bool $setParamsFromQuery = true,
+
     ) {
         $this->params = new ParameterBag($this->buildParams($params, $campaignToken, $setParamsFromQuery));
     }

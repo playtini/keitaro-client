@@ -2,11 +2,9 @@
 
 namespace Playtini\KeitaroClient\Http;
 
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -29,7 +27,6 @@ class KeitaroHttpClient
     public function __construct(
         private readonly HttpClientInterface $httpClient,
         private readonly string $trackerUrl,
-        private readonly LoggerInterface $logger = new NullLogger(),
     ) {
     }
 
@@ -40,13 +37,25 @@ class KeitaroHttpClient
         return $this;
     }
 
-    public function clientApiRequest(array $params, array $options = []): ResponseInterface
+    public function clientApiRequest(array $params, array $options = []): array
     {
         $method = Request::METHOD_POST;
         $url = sprintf('%s/click_api/v3', $this->trackerUrl);
         $options = $this->buildOptions($method, $params, $options);
 
-        return $this->request($method, $options, $url);
+        try {
+            $response = $this->httpClient->request($method, $url, $options);
+        } catch (TransportExceptionInterface $e) {
+            throw new KeitaroHttpClientException(new MockResponse($e->getMessage()), $method, $url, $options);
+        }
+
+        try {
+            $result = $response->toArray();
+        } catch (\Throwable) {
+            throw new KeitaroHttpClientException($response, $method, $url, $options);
+        }
+
+        return $result;
     }
 
     public function getRedirectUrl(?string $url): ?string
@@ -85,7 +94,7 @@ class KeitaroHttpClient
         $options['headers']['Api-Key'] = $this->adminApiKey;
         $options = $this->buildOptions($method, $params, $options);
 
-        return $this->request($method, $options, $url);
+        return $this->httpClient->request($method, $url, $options);
     }
 
     private function buildOptions(string $method = Request::METHOD_GET, array $params = [], array $options = []): array
@@ -107,18 +116,5 @@ class KeitaroHttpClient
         }
 
         return $result;
-    }
-
-    private function request(string $method, array $options, string $url): ResponseInterface
-    {
-        try {
-            $response = $this->httpClient->request($method, $url, $options);
-        } catch (\Throwable $e) {
-            $this->logger->error($e->getMessage(), ['method' => $method, 'url' => $url, 'options' => $options]);
-
-            $response = new JsonResponse(['message' => $e->getMessage(), 'method' => $method, 'url' => $url, 'options' => $options], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-        return $response;
     }
 }
