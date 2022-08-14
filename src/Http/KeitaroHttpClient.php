@@ -14,7 +14,6 @@ class KeitaroHttpClient
         'headers' => [
             'user-agent' => 'KHttpClient (playtini/keitaro-client)',
             'accept' => 'application/json',
-            'content-type' => 'application/json',
         ],
         'timeout' => 10,
         'max_duration' => 10,
@@ -108,10 +107,10 @@ class KeitaroHttpClient
         if (in_array($method, [Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH], true)) {
             if ($isJson) {
                 $result = array_merge($result, ['json' => $params]);
-                $options['headers']['content-type'] = 'application/json';
+                $headers['content-type'] = 'application/json';
             } else {
                 $result = array_merge($result, ['body' => http_build_query($params)]);
-                $options['headers']['content-type'] = 'application/x-www-form-urlencoded';
+                $headers['content-type'] = 'application/x-www-form-urlencoded';
             }
         }
         $result = array_merge($result, $options);
