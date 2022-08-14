@@ -111,6 +111,7 @@ class KeitaroHttpClient
                 $options['headers']['content-type'] = 'application/json';
             } else {
                 $result = array_merge($result, ['body' => http_build_query($params)]);
+                $options['headers']['content-type'] = 'application/x-www-form-urlencoded';
             }
         }
         $result = array_merge($result, $options);
