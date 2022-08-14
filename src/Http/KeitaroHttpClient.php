@@ -92,7 +92,7 @@ class KeitaroHttpClient
 
         $options['headers'] = $options['headers'] ?? [];
         $options['headers']['Api-Key'] = $this->adminApiKey;
-        $options = $this->buildOptions($method, $params, $options);
+        $options = $this->buildOptions($method, $params, $options, isJson: true);
 
         return $this->httpClient->request($method, $url, $options);
     }
