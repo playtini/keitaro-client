@@ -13,14 +13,16 @@ class KeitaroHttpClientException extends \RuntimeException implements ServerExce
     private string $url;
     private array $options;
 
-
-
     public function __construct(ResponseInterface $response, string $method, string $url, array $options)
     {
+        $this->method = $method;
+        $this->url = $url;
+        $this->options = $options;
+
         $this->response = $response;
         $code = $response->getInfo('http_code');
-        $url = $response->getInfo('url');
-        $message = sprintf('HTTP %d returned for "%s".', $code, $url);
+        $responseUrl = $response->getInfo('url');
+        $message = sprintf('HTTP %d returned for "%s".', $code, $responseUrl);
 
         $httpCodeFound = false;
         $isJson = false;
@@ -30,7 +32,7 @@ class KeitaroHttpClientException extends \RuntimeException implements ServerExce
                     break;
                 }
 
-                $message = sprintf('%s returned for "%s".', $h, $url);
+                $message = sprintf('%s returned for "%s".', $h, $responseUrl);
                 $httpCodeFound = true;
             }
 
