@@ -2,7 +2,11 @@
 
 namespace Playtini\KeitaroClient\Http;
 
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -25,6 +29,7 @@ class KeitaroHttpClient
     public function __construct(
         private readonly HttpClientInterface $httpClient,
         private readonly string $trackerUrl,
+        private readonly LoggerInterface $logger = new NullLogger(),
     ) {
     }
 
@@ -41,7 +46,7 @@ class KeitaroHttpClient
         $url = sprintf('%s/click_api/v3', $this->trackerUrl);
         $options = $this->buildOptions($method, $params, $options);
 
-        return $this->httpClient->request($method, $url, $options);
+        return $this->request($method, $options, $url);
     }
 
     public function getRedirectUrl(?string $url): ?string
@@ -80,7 +85,7 @@ class KeitaroHttpClient
         $options['headers']['Api-Key'] = $this->adminApiKey;
         $options = $this->buildOptions($method, $params, $options);
 
-        return $this->httpClient->request($method, $url, $options);
+        return $this->request($method, $options, $url);
     }
 
     private function buildOptions(string $method = Request::METHOD_GET, array $params = [], array $options = []): array
@@ -102,5 +107,18 @@ class KeitaroHttpClient
         }
 
         return $result;
+    }
+
+    private function request(string $method, array $options, string $url): ResponseInterface
+    {
+        try {
+            $response = $this->httpClient->request($method, $url, $options);
+        } catch (\Throwable $e) {
+            $this->logger->error($e->getMessage(), ['method' => $method, 'url' => $url, 'options' => $options]);
+
+            $response = new JsonResponse(['message' => $e->getMessage(), 'method' => $method, 'url' => $url, 'options' => $options], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return $response;
     }
 }
