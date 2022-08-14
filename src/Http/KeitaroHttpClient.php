@@ -39,7 +39,7 @@ class KeitaroHttpClient
 
     public function clientApiRequest(array $params, array $options = []): array
     {
-        $method = Request::METHOD_GET;
+        $method = Request::METHOD_POST;
         $url = sprintf('%s/click_api/v3', $this->trackerUrl);
         $options = $this->buildOptions($method, $params, $options);
 
