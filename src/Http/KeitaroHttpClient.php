@@ -39,7 +39,7 @@ class KeitaroHttpClient
 
     public function clientApiRequest(array $params, array $options = []): array
     {
-        $method = Request::METHOD_POST;
+        $method = Request::METHOD_GET;
         $url = sprintf('%s/click_api/v3', $this->trackerUrl);
         $options = $this->buildOptions($method, $params, $options);
 
@@ -97,7 +97,7 @@ class KeitaroHttpClient
         return $this->httpClient->request($method, $url, $options);
     }
 
-    private function buildOptions(string $method = Request::METHOD_GET, array $params = [], array $options = []): array
+    private function buildOptions(string $method = Request::METHOD_GET, array $params = [], array $options = [], bool $isJson = false): array
     {
         $headers = array_merge(
             self::DEFAULT_OPTS['headers'] ?? [],
@@ -106,8 +106,12 @@ class KeitaroHttpClient
 
         $result = self::DEFAULT_OPTS;
         if (in_array($method, [Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH], true)) {
-            $result = array_merge($result, ['json' => $params]);
-            $options['headers']['content-type'] = 'application/json';
+            if ($isJson) {
+                $result = array_merge($result, ['json' => $params]);
+                $options['headers']['content-type'] = 'application/json';
+            } else {
+                $result = array_merge($result, ['body' => http_build_query($params)]);
+            }
         }
         $result = array_merge($result, $options);
 
