@@ -12,9 +12,9 @@ class KeitaroHttpClient
 {
     private const DEFAULT_OPTS = [
         'headers' => [
-            'User-Agent' => 'KHttpClient (playtini/keitaro-client)',
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
+            'user-agent' => 'KHttpClient (playtini/keitaro-client)',
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
         ],
         'timeout' => 10,
         'max_duration' => 10,
