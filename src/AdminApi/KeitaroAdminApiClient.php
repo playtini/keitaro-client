@@ -75,6 +75,9 @@ class KeitaroAdminApiClient
         }
     }
 
+    /**
+     * I don't know why but it doesn't work :(
+     */
     public function clickUpdateCosts(ClicksUpdateCostsRequest $clicksUpdateCostsRequest): void
     {
         $response = $this->keitaroHttpClient->adminApiRequest(
@@ -83,6 +86,7 @@ class KeitaroAdminApiClient
             params: $clicksUpdateCostsRequest,
         );
 
+        //print_r($clicksUpdateCostsRequest->jsonSerialize());
         $result = $response->toArray();
         if (empty($result['success'])) {
             throw new \RuntimeException('invalid_api_request', ['method' => __METHOD__, 'response' => $response->getContent()]);
