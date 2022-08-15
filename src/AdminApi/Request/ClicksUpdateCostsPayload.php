@@ -24,7 +24,6 @@ class ClicksUpdateCostsPayload implements \JsonSerializable
             //'currency' => $this->currency,
         ];
         if ($this->filterCostRequest) {
-            $result['filter'] = $this->filterCostRequest->jsonSerialize();
             $result['filters'] = $this->filterCostRequest->jsonSerialize();
         }
 

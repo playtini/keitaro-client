@@ -76,7 +76,8 @@ class KeitaroAdminApiClient
     }
 
     /**
-     * I don't know why but it doesn't work :(
+     * It's safer to keep "only_campaign_uniques = 0" when you are using filter not only by campaigns,
+     * because your filter may select only non-unique (for campaign) clicks and costs will not be updated
      */
     public function clickUpdateCosts(ClicksUpdateCostsRequest $clicksUpdateCostsRequest): void
     {
@@ -86,7 +87,6 @@ class KeitaroAdminApiClient
             params: $clicksUpdateCostsRequest,
         );
 
-        //print_r($clicksUpdateCostsRequest->jsonSerialize());
         $result = $response->toArray();
         if (empty($result['success'])) {
             throw new \RuntimeException('invalid_api_request', ['method' => __METHOD__, 'response' => $response->getContent()]);
