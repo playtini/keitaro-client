@@ -6,7 +6,6 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class KeitaroHttpClient
 {
@@ -42,19 +41,7 @@ class KeitaroHttpClient
         $url = sprintf('%s/click_api/v3', $this->trackerUrl);
         $options = $this->buildOptions($method, $params, $options);
 
-        try {
-            $response = $this->httpClient->request($method, $url, $options);
-        } catch (TransportExceptionInterface $e) {
-            throw new KeitaroHttpClientException(new MockResponse($e->getMessage()), $method, $url, $options);
-        }
-
-        try {
-            $result = $response->toArray();
-        } catch (\Throwable) {
-            throw new KeitaroHttpClientException($response, $method, $url, $options);
-        }
-
-        return $result;
+        return $this->request($method, $url, $options);
     }
 
     public function getRedirectUrl(?string $url): ?string
@@ -81,7 +68,7 @@ class KeitaroHttpClient
         ]));
     }
 
-    public function adminApiRequest(string $method, string $endpoint, \JsonSerializable|array $params = [], array $options = []): ResponseInterface
+    public function adminApiRequest(string $method, string $endpoint, \JsonSerializable|array $params = [], array $options = []): array
     {
         if ($params instanceof \JsonSerializable) {
             $params = $params->jsonSerialize();
@@ -93,7 +80,7 @@ class KeitaroHttpClient
         $options['headers']['Api-Key'] = $this->adminApiKey;
         $options = $this->buildOptions($method, $params, $options, isJson: true);
 
-        return $this->httpClient->request($method, $url, $options);
+        return $this->request($method, $url, $options);
     }
 
     private function buildOptions(string $method = Request::METHOD_GET, array $params = [], array $options = [], bool $isJson = false): array
@@ -117,6 +104,23 @@ class KeitaroHttpClient
 
         if (!empty($headers)) {
             $result['headers'] = $headers;
+        }
+
+        return $result;
+    }
+
+    private function request(string $method, string $url, array $options): array
+    {
+        try {
+            $response = $this->httpClient->request($method, $url, $options);
+        } catch (TransportExceptionInterface $e) {
+            throw new KeitaroHttpClientException(new MockResponse($e->getMessage()), $method, $url, $options);
+        }
+
+        try {
+            $result = $response->toArray();
+        } catch (\Throwable) {
+            throw new KeitaroHttpClientException($response, $method, $url, $options);
         }
 
         return $result;

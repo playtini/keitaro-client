@@ -30,9 +30,10 @@ class KeitaroAdminApiClient
      */
     public function campaigns(): array
     {
-        $response = $this->keitaroHttpClient->adminApiRequest(Request::METHOD_GET, 'campaigns');
-
-        return array_map(static fn($a) => Campaign::create($a), $response->toArray());
+        return array_map(
+            static fn($a) => Campaign::create($a),
+            $this->keitaroHttpClient->adminApiRequest(Request::METHOD_GET, 'campaigns')
+        );
     }
 
     /**
@@ -43,9 +44,9 @@ class KeitaroAdminApiClient
      */
     public function campaign(int $campaignId): Campaign
     {
-        $response = $this->keitaroHttpClient->adminApiRequest(Request::METHOD_GET, sprintf('campaigns/%s', $campaignId));
-
-        return Campaign::create($response->toArray());
+        return Campaign::create(
+            $this->keitaroHttpClient->adminApiRequest(Request::METHOD_GET, sprintf('campaigns/%s', $campaignId))
+        );
     }
 
     /**
@@ -56,22 +57,22 @@ class KeitaroAdminApiClient
      */
     public function campaignFlows(int $campaignId): array
     {
-        $response = $this->keitaroHttpClient->adminApiRequest(Request::METHOD_GET, sprintf('campaigns/%s/streams', $campaignId));
-
-        return array_map(static fn($a) => Flow::create($a), $response->toArray());
+        return array_map(
+            static fn($a) => Flow::create($a),
+            $this->keitaroHttpClient->adminApiRequest(Request::METHOD_GET, sprintf('campaigns/%s/streams', $campaignId))
+        );
     }
 
     public function campaignUpdateCosts(int $campaignId, CampaignCostRequest $campaignCostRequest): void
     {
-        $response = $this->keitaroHttpClient->adminApiRequest(
+        $result = $this->keitaroHttpClient->adminApiRequest(
             method: Request::METHOD_POST,
             endpoint: sprintf('/campaigns/%s/update_costs', $campaignId),
             params: $campaignCostRequest
         );
 
-        $result = $response->toArray();
         if (empty($result['success'])) {
-            throw new \RuntimeException('invalid_api_request', ['method' => __METHOD__, 'response' => $response->getContent()]);
+            throw new \RuntimeException('invalid_api_request', ['method' => __METHOD__, 'response' => $result]);
         }
     }
 
@@ -81,26 +82,25 @@ class KeitaroAdminApiClient
      */
     public function clickUpdateCosts(ClicksUpdateCostsRequest $clicksUpdateCostsRequest): void
     {
-        $response = $this->keitaroHttpClient->adminApiRequest(
+        $result = $this->keitaroHttpClient->adminApiRequest(
             method: Request::METHOD_POST,
             endpoint: '/clicks/update_costs',
             params: $clicksUpdateCostsRequest,
         );
 
-        $result = $response->toArray();
         if (empty($result['success'])) {
-            throw new \RuntimeException('invalid_api_request', ['method' => __METHOD__, 'response' => $response->getContent()]);
+            throw new \RuntimeException('invalid_api_request', ['method' => __METHOD__, 'response' => $result]);
         }
     }
 
     public function reportBuild(ReportsRequest $reportsRequest): Report
     {
-        $response = $this->keitaroHttpClient->adminApiRequest(
-            method: Request::METHOD_POST,
-            endpoint: '/report/build',
-            params: $reportsRequest,
+        return Report::create(
+            $this->keitaroHttpClient->adminApiRequest(
+                method: Request::METHOD_POST,
+                endpoint: '/report/build',
+                params: $reportsRequest,
+            )
         );
-
-        return Report::create($response->toArray());
     }
 }
