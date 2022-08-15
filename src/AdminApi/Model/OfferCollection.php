@@ -5,7 +5,7 @@ namespace Playtini\KeitaroClient\AdminApi\Model;
 class OfferCollection
 {
     /** @var Offer[] */
-    private array $items;
+    private array $items = [];
 
     public function __construct(
         array $items

@@ -5,7 +5,7 @@ namespace Playtini\KeitaroClient\AdminApi\Request;
 class OfferFlowRequestCollection
 {
     /** @var OfferFlowRequest[] */
-    private array $items;
+    private array $items = [];
 
     public function __construct(
         array $items

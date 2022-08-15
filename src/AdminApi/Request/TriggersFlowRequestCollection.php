@@ -5,7 +5,7 @@ namespace Playtini\KeitaroClient\AdminApi\Request;
 class TriggersFlowRequestCollection
 {
     /** @var TriggersFlowRequest[] */
-    private array $items;
+    private array $items = [];
 
     public function __construct(
         array $items

@@ -5,7 +5,7 @@ namespace Playtini\KeitaroClient\AdminApi\Model;
 class S2SPostbackCollection
 {
     /** @var S2SPostback[] */
-    private array $items;
+    private array $items = [];
 
     public function __construct(
         array $items

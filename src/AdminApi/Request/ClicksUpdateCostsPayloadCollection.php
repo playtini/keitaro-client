@@ -5,7 +5,7 @@ namespace Playtini\KeitaroClient\AdminApi\Request;
 class ClicksUpdateCostsPayloadCollection implements \JsonSerializable
 {
     /** @var ClicksUpdateCostsPayload[] */
-    private array $items;
+    private array $items = [];
 
     public function __construct(
         array $items
