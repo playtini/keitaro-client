@@ -9,6 +9,7 @@ use Playtini\KeitaroClient\AdminApi\Model\Campaign;
 use Playtini\KeitaroClient\AdminApi\Model\Flow;
 use Playtini\KeitaroClient\AdminApi\Model\Report;
 use Playtini\KeitaroClient\AdminApi\Request\CampaignCostRequest;
+use Playtini\KeitaroClient\AdminApi\Request\ClicksUpdateCostsRequest;
 use Playtini\KeitaroClient\AdminApi\Request\ReportsRequest;
 use Playtini\KeitaroClient\Http\KeitaroHttpClient;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,6 +67,20 @@ class KeitaroAdminApiClient
             method: Request::METHOD_POST,
             endpoint: sprintf('/campaigns/%s/update_costs', $campaignId),
             params: $campaignCostRequest
+        );
+
+        $result = $response->toArray();
+        if (empty($result['success'])) {
+            throw new \RuntimeException('invalid_api_request', ['method' => __METHOD__, 'response' => $response->getContent()]);
+        }
+    }
+
+    public function clickUpdateCosts(ClicksUpdateCostsRequest $clicksUpdateCostsRequest): void
+    {
+        $response = $this->keitaroHttpClient->adminApiRequest(
+            method: Request::METHOD_POST,
+            endpoint: '/clicks/update_costs',
+            params: $clicksUpdateCostsRequest,
         );
 
         $result = $response->toArray();

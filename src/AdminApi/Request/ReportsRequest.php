@@ -22,6 +22,8 @@ class ReportsRequest implements \JsonSerializable
     public const GROUPING_SUB_ID_15 = 'sub_id_15';
 
     public const METRIC_CLICKS = 'clicks';
+    public const METRIC_COST = 'cost';
+    public const METRIC_CPC = 'cpc';
 
     public function __construct(
         public readonly RangeRequest $range,
