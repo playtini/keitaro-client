@@ -5,6 +5,7 @@
 namespace Playtini\KeitaroClient\AdminApi\Model;
 
 use Gupalo\DateUtils\DateUtils;
+use Gupalo\Json\Json;
 use Playtini\KeitaroClient\AdminApi\Enum\CampaignBindVisitorsEnum;
 use Playtini\KeitaroClient\AdminApi\Enum\CampaignCostTypeEnum;
 use Playtini\KeitaroClient\AdminApi\Enum\CampaignStateEnum;
@@ -43,6 +44,10 @@ class Campaign
 
     public static function create(array $a): self
     {
+        if (is_string($a['parameters'])) {
+            $a['parameters'] = Json::toArray($a['parameters']);
+        }
+
         return new self(
             id: $a['id'] ?? null,
             alias: $a['alias'] ?? '',
