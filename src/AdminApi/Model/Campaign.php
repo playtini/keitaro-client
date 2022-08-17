@@ -45,7 +45,15 @@ class Campaign
     public static function create(array $a): self
     {
         if (is_string($a['parameters'])) {
-            $a['parameters'] = Json::toArray($a['parameters']);
+            try {
+                $t = $a['parameters'];
+                $a['parameters'] = Json::toArray($t);
+            } catch (\Throwable $e) {
+                $a['parameters'] = [
+                    'error' => $e->getMessage(),
+                    'value' => (string)$t,
+                ];
+            }
         }
 
         return new self(
