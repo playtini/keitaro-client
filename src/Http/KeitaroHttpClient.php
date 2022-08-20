@@ -99,6 +99,8 @@ class KeitaroHttpClient
                 $result = array_merge($result, ['body' => http_build_query($params)]);
                 $headers['content-type'] = 'application/x-www-form-urlencoded';
             }
+        } else {
+            $options['query'] = $params;
         }
         $result = array_merge($result, $options);
 

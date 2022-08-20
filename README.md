@@ -5,17 +5,20 @@ Keitaro PHP Client
 
 It has 2 APIs: Click API, Admin API.
 
+
 ## Maintainer
 
 This library is created and supported by [Playtini](https://playtini.ua).
 
 We're hiring marketers (FB, Tiktok, UAC, in-app, Google) and developers (PHP, JS): [playtini.ua/jobs](https://playtini.ua/jobs)
 
+
 ## Install
 
 ```bash
 composer require playtini/keitaro-client
 ```
+
 
 ## Click API
 
@@ -48,6 +51,7 @@ If you don't know campaign token but know campaign alias (unique URL part in TDS
 https://keitaro.example.com/THIS_IS_ALIAS ) then use `KeitaroClickApiTokenResolver` to get token via Admin API.
 
 For dependency injection you can use `KeitaroClickApiClientFactory`.
+
 
 ## Admin API
 
