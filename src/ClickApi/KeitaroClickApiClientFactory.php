@@ -9,34 +9,25 @@ class KeitaroClickApiClientFactory
 {
     public function __construct(
         private readonly KeitaroHttpClient $keitaroHttpClient,
-        private ?string $campaignToken = null,
-        private readonly array $params = [],
     ) {
     }
 
     public function create(
-        Request $request = null,
-        array $params = [],
-        bool $setParamsFromQuery = true,
-        ?string $campaignToken = null,
+        KeitaroRequest $request = null,
+        KeitaroParams $params = null,
+        string $campaignToken = null,
     ): KeitaroClickApiClient {
         if ($request === null) {
-            $request = Request::createFromGlobals();
+            $request = KeitaroRequest::create(Request::createFromGlobals());
+        }
+        if ($params === null) {
+            $params = KeitaroParams::createFromKeitaroRequest($request, $campaignToken);
         }
 
         return new KeitaroClickApiClient(
             keitaroHttpClient: $this->keitaroHttpClient,
-            request: $request,
-            campaignToken: $campaignToken ?? $this->campaignToken,
-            params: array_merge($this->params, $params),
-            setParamsFromQuery: $setParamsFromQuery,
+            keitaroRequest: $request,
+            params: $params,
         );
-    }
-
-    public function setCampaignToken(?string $campaignToken): self
-    {
-        $this->campaignToken = $campaignToken;
-
-        return $this;
     }
 }

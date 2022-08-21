@@ -34,21 +34,38 @@ Click API docs:
 Usage:
 ```php
 use Playtini\KeitaroClient\ClickApi\KeitaroClickApiClient;
+use Playtini\KeitaroClient\ClickApi\KeitaroParams;
+use Playtini\KeitaroClient\ClickApi\KeitaroRequest;
 use Playtini\KeitaroClient\Http\KeitaroHttpClient;
 use Symfony\Component\HttpClient\CurlHttpClient;
 use Symfony\Component\HttpFoundation\Request;
 
 require_once(__DIR__ . '/vendor/autoload.php');
 
-$request = Request::createFromGlobals();
 $keitaroHttpClient = new KeitaroHttpClient(new CurlHttpClient(), 'https://keitaro.example.com'); // change to your TDS domain
-$clickApiClient = new KeitaroClickApiClient($keitaroHttpClient, $request, 'CAMPAIGN_TOKEN_HERE'); // change campaign token
-$response = $clickApiClient->getResponse();
+$keitaroRequest = KeitaroRequest::create(Request::createFromGlobals()),
+$keitaroParams = KeitaroParams::createFromKeitaroRequest($keitaroRequest, 'CAMPAIGN_TOKEN_HERE'); // change campaign token
+$clickApiClient = new KeitaroClickApiClient($keitaroHttpClient, $keitaroRequest, $keitaroParams);
+$response = $clickApiClient->createResponse($clickApiClient->getResult());
 $response->send();
+
 ```
 
 If you don't know campaign token but know campaign alias (unique URL part in TDS link - like
 https://keitaro.example.com/THIS_IS_ALIAS ) then use `KeitaroClickApiTokenResolver` to get token via Admin API.
+```php
+
+
+use Playtini\KeitaroClient\AdminApi\KeitaroAdminApiClient;
+use Playtini\KeitaroClient\ClickApi\KeitaroClickApiTokenResolver;
+use Playtini\KeitaroClient\Http\KeitaroHttpClient;
+use Symfony\Component\HttpClient\CurlHttpClient;
+
+$keitaroHttpClient = new KeitaroHttpClient(new CurlHttpClient(), 'https://keitaro.example.com'); // change to your TDS domain
+$adminClient = new KeitaroAdminApiClient($keitaroHttpClient, 'ADMIN_API_KEY_HERE'); // change api key
+$resolver = new KeitaroClickApiTokenResolver($adminClient);
+$resolver->getCampaignToken('test-tds')
+```
 
 For dependency injection you can use `KeitaroClickApiClientFactory`.
 
@@ -118,7 +135,7 @@ public function __invoke(
     );
     $client->params->set('log', 1);
 
-    return $client->getResponse();
+    return $client->createResponse($client->getResult());
 }
 ```
 

@@ -7,8 +7,6 @@ namespace Playtini\KeitaroClient\ClickApi;
 use Playtini\KeitaroClient\Http\KeitaroHttpClient;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -25,26 +23,24 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class KeitaroClickApiClient
 {
-    private const SYSTEM_PARAMS = ['api_key', 'token', 'language', 'ua', 'ip', 'referrer', 'force_redirect_offer'];
-
-    private ?KeitaroClickApiResult $lastResult = null;
-
     public ParameterBag $params;
 
     public function __construct(
         public readonly KeitaroHttpClient $keitaroHttpClient,
-        private readonly Request $request,
-        ?string $campaignToken = null, // if you not set it here then don't forget to set it later: $client->params->set('token', 'YOUR_TOKEN')
-        array $params = [],
-        bool $setParamsFromQuery = true,
+        private readonly KeitaroRequest $keitaroRequest,
+        KeitaroParams $params = null, // if you not campaign tokent here then don't forget to set it later: $client->params->set('token', 'YOUR_TOKEN')
 
     ) {
-        $this->params = new ParameterBag($this->buildParams($params, $campaignToken, $setParamsFromQuery));
+        $this->params = new ParameterBag(
+            $this->buildParams(
+                $params ?? KeitaroParams::createFromKeitaroRequest($keitaroRequest)
+            )
+        );
     }
 
     public function setParamsFromQuery(): self
     {
-        $params = $this->extractParamsFromQuery();
+        $params = $this->keitaroRequest->getQueryParamsWithoutSystemParams();
         foreach ($params as $k => $v) {
             $this->params->set($k, $v);
         }
@@ -52,33 +48,12 @@ class KeitaroClickApiClient
         return $this;
     }
 
-    public function getResponse(?KeitaroClickApiResult $apiResult = null, $redirectToOffer = true): Response
+    public function createResponse(KeitaroClickApiResult $apiResult): Response
     {
-        $apiResult = $apiResult ?? $this->lastResult ?? $this->getResult();
-
-        $content = $apiResult->body;
-        if (
-            str_contains($apiResult->contentType, 'image') ||
-            str_contains($apiResult->contentType, 'application/pdf')
-        ) {
-            $content = base64_decode($content);
-        }
-
-        // sometimes Keitaro just selects offer but doesn't redirect user
-        $redirectUrl = null;
-        if ($redirectToOffer && $apiResult->offerUrl && $apiResult->isEmpty()) {
-            $redirectUrl = $this->keitaroHttpClient->getRedirectUrl($apiResult->offerUrl);
-        }
-
-        if ($redirectUrl) {
-            $response = new RedirectResponse($redirectUrl);
-        } else {
-            $response = new Response($content, $apiResult->status, $apiResult->headers);
-        }
+        $response = new Response($this->getApiResultBody($apiResult), $apiResult->status, $apiResult->headers);
 
         foreach ($apiResult->cookies as $k => $v) {
-            $cookieHost = preg_match('#^www\.#i', $this->request->getHost()) ? preg_replace('#^www\.#i', '.', $this->request->getHost()) : null;
-            $response->headers->setCookie(Cookie::create($k, $v, $apiResult->cookiesTtlHours * 3600, '/', $cookieHost));
+            $response->headers->setCookie(Cookie::create($k, $v, $apiResult->cookiesTtlHours * 3600, '/', $this->keitaroRequest->getCookieHost()));
         }
         if ($apiResult->contentType) {
             $response->headers->set('Content-Type', $apiResult->contentType);
@@ -87,30 +62,23 @@ class KeitaroClickApiClient
         return $response;
     }
 
-    public function getResult(): KeitaroClickApiResult
+    public function getResult(bool $forceRedirectOffer = true): KeitaroClickApiResult
     {
+        if (!$this->params->get('token')) {
+            throw new \InvalidArgumentException('empty_campaign_token');
+        }
+
+        $this->params->set('force_redirect_offer', $forceRedirectOffer ? '1' : '');
         $options = $this->buildRequestOptions();
 
         $responseData = $this->keitaroHttpClient->clientApiRequest($this->params->all(), $options);
-        $responseData['offer_url'] = $this->keitaroHttpClient->buildOfferUrl($responseData['info']['token'] ?? '');
 
         return KeitaroClickApiResult::create($responseData);
     }
 
-    private function isPrefetchDetected(): bool
+    public function buildOfferUrl(string $token): string
     {
-        $checkHeaders = [
-            'x-purpose' => 'preview',
-            'x-moz' => 'prefetch',
-            'x-fb-http-engine' => 'Liger',
-        ];
-        foreach ($checkHeaders as $k => $v) {
-            if ($this->request->headers->get($k) === $v) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->keitaroHttpClient->buildOfferUrl($token); // KeitaroClickApiResult->token
     }
 
     private function buildRequestOptions(): array
@@ -118,62 +86,50 @@ class KeitaroClickApiClient
         $options = [
             'headers' => [],
         ];
-        $cookies = [];
-        foreach ($this->request->cookies as $k => $v) {
-            if ($k !== 'PHPSESSID') {
-                $cookies[] = $k.'='.$v;
-            }
-        }
-        if (!empty($cookies)) {
-            $options['headers']['Cookie'] = implode('; ', $cookies);
+
+        $cookieHeader = $this->keitaroRequest->buildCookieHeader();
+        if ($cookieHeader !== null) {
+            $options['headers']['Cookie'] = $cookieHeader;
         }
 
         return $options;
     }
 
-    private function buildParams(array $params = [], string $campaignToken = null, bool $setParamsFromQuery = true): array
+    private function buildParams(KeitaroParams $params): array
     {
-        $result = $params;
+        $result = array_merge($params->jsonSerialize(), [
+            'version' => 3,
+            'info' => 1,
+            'ip' => $this->keitaroRequest->ip,
+            'ua' => $this->keitaroRequest->getUserAgent(),
+            'language' => $this->keitaroRequest->getLanguage(),
+            'x_requested_with' => $this->keitaroRequest->getXRequestedWith(),
+            'se_referrer' => $this->keitaroRequest->getReferer(),
+            'referrer' => $this->keitaroRequest->getReferer(),
+            'original_headers' => $this->keitaroRequest->headers,
+            'original_host' => $this->keitaroRequest->host,
+            'original_method' => $this->keitaroRequest->method,
+            'uri' => $this->keitaroRequest->uri,
+            'kversion' => '3.4', // strange, but it differes from KClient version
+        ]);
 
-        if ($setParamsFromQuery) {
-            $result = array_merge($result, $this->extractParamsFromQuery());
-        }
-
-        if ($campaignToken !== null) {
-            $result['token'] = $campaignToken;
-        }
-
-        $result['version'] = 3;
-        $result['info'] = 1;
-        $result['ip'] = $this->request->getClientIp();
-        $result['ua'] = $this->request->headers->get('user-agent');
-        $result['language'] = substr($this->request->headers->get('accept-language', ''), 0, 2);
-        $result['x_requested_with'] = $this->request->headers->get('x-requested-with');
-        $result['se_referrer'] = $this->request->headers->get('referer');
-        $result['referrer'] = $this->request->headers->get('referer');
-        $result['original_headers'] = array_map(static fn($v) => $v[0], $this->request->headers->all());
-        $result['original_host'] = $this->request->getHost();
-        $result['original_method'] = $this->request->getMethod();
-        $result['uri'] = $this->request->getUri();
-        $result['kversion'] = '3.4'; // strange, but it differes from KClient version
-        if ($this->isPrefetchDetected()) {
+        if ($this->keitaroRequest->isPrefetchDetected()) {
             $result['prefetch'] = 1;
         }
 
         return $result;
     }
 
-    private function extractParamsFromQuery(): array
+    private function getApiResultBody(KeitaroClickApiResult $apiResult): string
     {
-        $queryParams = $this->request->query->all();
-
-        $result = [];
-        foreach ($queryParams as $k => $v) {
-            if (!in_array($k, self::SYSTEM_PARAMS, true)) {
-                $result[$k] = $v;
-            }
+        $content = (string)$apiResult->body;
+        if (
+            str_contains($apiResult->contentType, 'image') ||
+            str_contains($apiResult->contentType, 'application/pdf')
+        ) {
+            $content = base64_decode($content);
         }
 
-        return $result;
+        return $content;
     }
 }
