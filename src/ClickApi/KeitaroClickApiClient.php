@@ -53,7 +53,19 @@ class KeitaroClickApiClient
         $response = new Response($this->getApiResultBody($apiResult), $apiResult->status, $apiResult->headers);
 
         foreach ($apiResult->cookies as $k => $v) {
-            $response->headers->setCookie(Cookie::create($k, $v, $apiResult->cookiesTtlHours * 3600, '/', $this->keitaroRequest->getCookieHost()));
+            $expire = $apiResult->cookiesTtlHours * 3600;
+            if (!in_array($k, ['_subid', '_token'], true)) { // uniqueness_cookie
+                $expire = new \DateTime('+10 years');
+            }
+
+            $cookie = Cookie::create(
+                name: $k,
+                value: $v,
+                expire: $expire,
+                path: '/',
+                domain: $this->keitaroRequest->getCookieHost()
+            );
+            $response->headers->setCookie($cookie);
         }
         if ($apiResult->contentType) {
             $response->headers->set('Content-Type', $apiResult->contentType);
