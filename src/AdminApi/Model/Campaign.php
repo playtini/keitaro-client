@@ -11,6 +11,7 @@ use Playtini\KeitaroClient\AdminApi\Enum\CampaignCostTypeEnum;
 use Playtini\KeitaroClient\AdminApi\Enum\CampaignStateEnum;
 use Playtini\KeitaroClient\AdminApi\Enum\CampaignTypeEnum;
 use Playtini\KeitaroClient\AdminApi\Enum\CampaignUniquenessMethodEnum;
+use Throwable;
 
 class Campaign
 {
@@ -48,11 +49,16 @@ class Campaign
             try {
                 $t = $a['parameters'];
                 $a['parameters'] = Json::toArray($t);
-            } catch (\Throwable $e) {
-                $a['parameters'] = [
-                    'error' => $e->getMessage(),
-                    'value' => (string)$t,
-                ];
+            } catch (Throwable) {
+                try {
+                    // string may be double json encoded
+                    $a['parameters'] = Json::toArray(json_decode($t, true, 512, JSON_THROW_ON_ERROR));
+                } catch (Throwable $e) {
+                    $a['parameters'] = [
+                        'error' => $e->getMessage(),
+                        'value' => (string)$t,
+                    ];
+                }
             }
         }
 
