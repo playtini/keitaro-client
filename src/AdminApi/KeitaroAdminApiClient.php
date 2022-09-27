@@ -18,6 +18,7 @@ use Playtini\KeitaroClient\AdminApi\Model\TrafficSource;
 use Playtini\KeitaroClient\AdminApi\Model\User;
 use Playtini\KeitaroClient\AdminApi\Request\CampaignCostRequest;
 use Playtini\KeitaroClient\AdminApi\Request\ClicksUpdateCostsRequest;
+use Playtini\KeitaroClient\AdminApi\Request\FlowRequest;
 use Playtini\KeitaroClient\AdminApi\Request\ReportsRequest;
 use Playtini\KeitaroClient\Http\KeitaroHttpClient;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +56,18 @@ class KeitaroAdminApiClient
             static fn($a) => Campaign::create($a),
             $this->keitaroHttpClient->adminApiRequest(Request::METHOD_GET, 'campaigns')
         );
+    }
+
+    public function campaignByName(string $name): ?Campaign
+    {
+        $items = $this->campaigns();
+        foreach ($items as $item) {
+            if ($item->name === $name) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -108,6 +121,18 @@ class KeitaroAdminApiClient
             static fn($a) => Offer::create($a),
             $this->keitaroHttpClient->adminApiRequest(Request::METHOD_GET, 'offers')
         );
+    }
+
+    public function offerByName(string $name): ?Offer
+    {
+        $items = $this->offers();
+        foreach ($items as $item) {
+            if ($item->name === $name) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -202,6 +227,17 @@ class KeitaroAdminApiClient
         if (empty($result['success'])) {
             throw new \RuntimeException('invalid_api_request', ['method' => __METHOD__, 'response' => $result]);
         }
+    }
+
+    public function addCampaignFlow(FlowRequest $flowRequest): Flow
+    {
+        $result = $this->keitaroHttpClient->adminApiRequest(
+            method: Request::METHOD_POST,
+            endpoint: '/streams',
+            params: $flowRequest,
+        );
+
+        return Flow::create($result);
     }
 
     public function reportBuild(ReportsRequest $reportsRequest): Report

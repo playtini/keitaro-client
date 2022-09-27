@@ -2,7 +2,7 @@
 
 namespace Playtini\KeitaroClient\AdminApi\Request;
 
-class FilterFlowRequestCollection
+class FilterFlowRequestCollection implements \JsonSerializable
 {
     /** @var FilterFlowRequest[] */
     private array $items = [];
@@ -23,5 +23,15 @@ class FilterFlowRequestCollection
     public function all(): array
     {
         return $this->items;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $result = [];
+        foreach ($this->items as $item) {
+            $result[] = $item->jsonSerialize();
+        }
+
+        return $result;
     }
 }

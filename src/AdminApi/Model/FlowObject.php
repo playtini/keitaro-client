@@ -2,6 +2,7 @@
 
 namespace Playtini\KeitaroClient\AdminApi\Model;
 
+use Playtini\KeitaroClient\AdminApi\Enum\FlowActionTypeEnum;
 use Playtini\KeitaroClient\AdminApi\Enum\FlowSchemaEnum;
 use Playtini\KeitaroClient\AdminApi\Enum\FlowStateEnum;
 use Playtini\KeitaroClient\AdminApi\Enum\FlowTypeEnum;
@@ -10,7 +11,7 @@ use Playtini\KeitaroClient\AdminApi\Request\LandingFlowRequestCollection;
 use Playtini\KeitaroClient\AdminApi\Request\OfferFlowRequestCollection;
 use Playtini\KeitaroClient\AdminApi\Request\TriggersFlowRequestCollection;
 
-class FlowObject
+class FlowObject implements \JsonSerializable
 {
     public function __construct(
         public readonly int $campaignId, // Campaign ID
@@ -21,7 +22,7 @@ class FlowObject
         public readonly array $actionOptions, // Action options
         public readonly string $comments, // Comments or notes for the flow
         public readonly FlowStateEnum $state = FlowStateEnum::Active, // State of the flow
-        public readonly string $actionType = '', // Action to perform (see 'Retrieve available flow action types')
+        public readonly FlowActionTypeEnum $actionType = FlowActionTypeEnum::Http,
         public readonly ?FlowSchemaEnum $schema = null,
         public readonly bool $collectClicks = false, // Flow saves clicks (true/false)
         public readonly bool $filterOr = false, // Use 'OR' operator between filters
@@ -30,5 +31,27 @@ class FlowObject
         public readonly LandingFlowRequestCollection $landings = new LandingFlowRequestCollection([]),
         public readonly OfferFlowRequestCollection $offers = new OfferFlowRequestCollection([]),
     ) {
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'campaign_id' => $this->campaignId,
+            'type' => $this->type->value,
+            'name' => $this->name,
+            'position' => $this->position,
+            'weight' => $this->weight,
+            'action_options' => $this->actionOptions,
+            'comments' => $this->comments,
+            'state' => $this->state->value,
+            'action_type' => $this->actionType->value,
+            'schema' => $this->schema->value,
+            'collect_clicks' => $this->collectClicks,
+            'filter_or' => $this->filterOr,
+            'filters' => $this->filters->jsonSerialize(),
+            'triggers' => $this->triggers->jsonSerialize(),
+            'landings' => $this->landings->jsonSerialize(),
+            'offers' => $this->offers->jsonSerialize(),
+        ];
     }
 }

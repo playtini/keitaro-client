@@ -2,7 +2,7 @@
 
 namespace Playtini\KeitaroClient\AdminApi\Request;
 
-class LandingFlowRequestCollection
+class LandingFlowRequestCollection implements \JsonSerializable
 {
     /** @var LandingFlowRequest[] */
     private array $items = [];
@@ -23,5 +23,15 @@ class LandingFlowRequestCollection
     public function all(): array
     {
         return $this->items;
+    }
+
+    public function jsonSerialize(): array
+    {
+        $result = [];
+        foreach ($this->items as $item) {
+            $result[] = $item->jsonSerialize();
+        }
+
+        return $result;
     }
 }

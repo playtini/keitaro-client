@@ -4,7 +4,7 @@ namespace Playtini\KeitaroClient\AdminApi\Model;
 
 use Playtini\KeitaroClient\AdminApi\Enum\FilterFlowModeEnum;
 
-class Filter
+class Filter implements \JsonSerializable
 {
     public function __construct(
         public readonly int $id,
@@ -26,5 +26,29 @@ class Filter
             payload: $a['payload'] ?? [], // {per_hour, per_day, total}
             oid: $a['oid'] ?? 0,
         );
+    }
+
+    public function jsonSerialize(): array
+    {
+        $result = [
+            'id' => $this->id,
+            'stream_id' => $this->flowId,
+            'name' => $this->name,
+            'mode' => $this->mode->value,
+            'payload' => $this->payload,
+            'oid' => $this->oid,
+        ];
+
+        if (empty($result['id'])) {
+            unset($result['id']);
+        }
+        if (empty($result['stream_id'])) {
+            unset($result['stream_id']);
+        }
+        if (empty($result['oid'])) {
+            unset($result['oid']);
+        }
+
+        return $result;
     }
 }
