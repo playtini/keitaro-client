@@ -161,6 +161,28 @@ class ReportsRequest implements \JsonSerializable
     public const GROUPING_LP_CTR = 'lp_ctr';
     public const GROUPING_LABEL = 'label';
 
+    public const OPERATOR_EQUALS = 'EQUALS'; // Number 10
+    public const OPERATOR_NOT_EQUAL = 'NOT_EQUAL'; // Number 10
+    public const OPERATOR_EQUALS_OR_GREATER_THAN = 'EQUALS_OR_GREATER_THAN'; // Number 10
+    public const OPERATOR_EQUALS_OR_LESS_THAN = 'EQUALS_OR_LESS_THAN'; // Number 10
+    public const OPERATOR_GREATER_THAN = 'GREATER_THAN'; // Number 10
+    public const OPERATOR_LESS_THAN = 'LESS_THAN'; // Number 10
+    public const OPERATOR_MATCH_REGEXP = 'MATCH_REGEXP'; // String /uuid=100[0-9]{2}/
+    public const OPERATOR_NOT_MATCH_REGEXP = 'NOT_MATCH_REGEXP'; // String /uuid=100[0-9]{2}/
+    public const OPERATOR_BEGINS_WITH = 'BEGINS_WITH'; // String abc
+    public const OPERATOR_ENDS_WITH = 'ENDS_WITH'; // String zyx
+    public const OPERATOR_CONTAINS = 'CONTAINS'; // String mnp
+    public const OPERATOR_NOT_CONTAIN = 'NOT_CONTAIN'; // String abc
+    public const OPERATOR_IN_LIST = 'IN_LIST'; // Array ['a', 'b', 'c']
+    public const OPERATOR_NOT_IN_LIST = 'NOT_IN_LIST'; // Array ['a', 'b', 'c']
+    public const OPERATOR_BETWEEN = 'BETWEEN'; // Array
+    public const OPERATOR_IS_SET = 'IS_SET';
+    public const OPERATOR_IS_NOT_SET = 'IS_NOT_SET';
+    public const OPERATOR_IS_TRUE = 'IS_TRUE';
+    public const OPERATOR_IS_FALSE = 'IS_FALSE';
+    public const OPERATOR_HAS_LABEL = 'HAS_LABEL'; // whitelist or blacklist
+    public const OPERATOR_NOT_HAS_LABEL = 'NOT_HAS_LABEL'; // whitelist or blacklist
+
     public const METRIC_CAMPAIGN_ID = 'campaign_id';
     public const METRIC_DATETIME = 'datetime';
     public const METRIC_YEAR = 'year';
