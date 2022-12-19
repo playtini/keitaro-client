@@ -42,8 +42,8 @@ class Offer
     public static function create(array $a): self
     {
         $country = $a['country'] ?? [];
-        if (is_string($country)) {
-            $country = explode(',', $country);
+        if (!is_array($country)) {
+            $country = explode(',', trim((string)$country));
         }
 
         return new self(
