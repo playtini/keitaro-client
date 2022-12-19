@@ -41,6 +41,11 @@ class Offer
 
     public static function create(array $a): self
     {
+        $country = $a['country'] ?? [];
+        if (is_string($country)) {
+            $country = explode(',', $country);
+        }
+
         return new self(
             id: $a['id'] ?? 0,
             alternativeOfferId: $a['alternative_offer_id'] ?? 0,
@@ -67,7 +72,7 @@ class Offer
             conversionTimezone: $a['conversion_timezone'] ?? 'UTC',
             conversionCapEnabled: (bool)($a['conversion_cap_enabled'] ?? false),
             dailyCap: $a['daily_cap'] ?? 0,
-            country: $a['country'] ?? [],
+            country: $country,
             notes: $a['notes'] ?? '',
         );
     }
