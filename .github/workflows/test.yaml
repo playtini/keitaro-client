@@ -40,3 +40,5 @@ jobs:
 
             -   name: codecov
                 uses: codecov/codecov-action@v3
+                with:
+                    verbose: true
