@@ -1,6 +1,10 @@
 Keitaro PHP Client
 ==================
 
+[![Version](http://poser.pugx.org/playtini/keitaro-client/version)](https://packagist.org/packages/playtini/keitaro-client)
+[![PHP Version Require](http://poser.pugx.org/playtini/keitaro-client/require/php)](https://packagist.org/packages/playtini/keitaro-client)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/playtini/keitaro-client)](https://packagist.org/packages/playtini/keitaro-client)
+
 [Keitaro](https://keitaro.io) is a tool for affiliate and performance marketing.
 
 It has 2 APIs: Click API, Admin API.
