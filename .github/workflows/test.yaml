@@ -1,0 +1,42 @@
+name: test
+on:
+    workflow_dispatch:
+    push: {branches: ['main']}
+concurrency:
+    group: ci-${{ github.ref }}-${{ github.head_ref }}
+    cancel-in-progress: true
+jobs:
+    test:
+        runs-on: self-hosted
+        steps:
+            -   name: checkout
+                uses: actions/checkout@v3.1.0
+                with:
+                    fetch-depth: 1
+
+            -   name: composer cache
+                uses: actions/cache@v2
+                with:
+                    path: /tmp/composer-cache
+                    key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+            -   name: composer
+                uses: php-actions/composer@v6.0.0
+                with:
+                    dev: yes
+                    php_version: '8.1'
+                    memory_limit: 512M
+                    args: '--ignore-platform-reqs --no-ansi --no-scripts --no-progress -o'
+
+            -   name: phpunit
+                uses: php-actions/phpunit@v3
+                with:
+                    version: '9.5'
+                    php_version: '8.1'
+                    configuration: phpunit.xml.dist
+                    args: '--coverage-text -dxdebug.mode=coverage'
+                    memory_limit: '512M'
+                    php_extensions: xdebug mbstring
+
+            -   name: codecov
+                uses: codecov/codecov-action@v3
