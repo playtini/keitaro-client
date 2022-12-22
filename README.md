@@ -4,6 +4,8 @@ Keitaro PHP Client
 [![Version](http://poser.pugx.org/playtini/keitaro-client/version)](https://packagist.org/packages/playtini/keitaro-client)
 [![PHP Version Require](http://poser.pugx.org/playtini/keitaro-client/require/php)](https://packagist.org/packages/playtini/keitaro-client)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/playtini/keitaro-client)](https://packagist.org/packages/playtini/keitaro-client)
+[![GitHub latest commit](https://badgen.net/github/last-commit/playtini/keitaro-client/main)](https://GitHub.com/playtini/keitaro-client/commit/)
+
 
 [Keitaro](https://keitaro.io) is a tool for affiliate and performance marketing.
 
