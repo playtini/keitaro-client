@@ -34,7 +34,7 @@ jobs:
                     version: '9.5'
                     php_version: '8.1'
                     configuration: phpunit.xml.dist
-                    args: '--coverage-text -dxdebug.mode=coverage'
+                    args: '--coverage-text --coverage-clover coverage.xml -dxdebug.mode=coverage'
                     memory_limit: '512M'
                     php_extensions: xdebug mbstring
 
