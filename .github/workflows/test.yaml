@@ -30,6 +30,8 @@ jobs:
 
             -   name: phpunit
                 uses: php-actions/phpunit@v3
+                env:
+                    XDEBUG_MODE: coverage
                 with:
                     version: '9.5'
                     php_version: '8.1'
