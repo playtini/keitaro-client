@@ -16,12 +16,17 @@ class KeitaroClickApiClientFactory
         KeitaroRequest $request = null,
         KeitaroParams $params = null,
         string $campaignToken = null,
+        int $maxTimeout = null,
     ): KeitaroClickApiClient {
         if ($request === null) {
             $request = KeitaroRequest::create(Request::createFromGlobals());
         }
         if ($params === null) {
             $params = KeitaroParams::createFromKeitaroRequest($request, $campaignToken);
+        }
+
+        if ($maxTimeout) {
+            $this->keitaroHttpClient->setMaxTimeout($maxTimeout);
         }
 
         return new KeitaroClickApiClient(
