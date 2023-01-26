@@ -9,16 +9,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class KeitaroHttpClient
 {
-    private const DEFAULT_OPTS = [
-        'headers' => [
-            'user-agent' => 'KHttpClient (playtini/keitaro-client)',
-            'accept' => 'application/json',
-        ],
-        'timeout' => 10,
-        'max_duration' => 10,
-        'verify_peer' => false,
-        'verify_host' => false,
-    ];
+    private int $maxTimeout = 10;
 
     private string $adminApiKey = '';
 
@@ -44,11 +35,18 @@ class KeitaroHttpClient
         return $this->request($method, $url, $options);
     }
 
+    public function setMaxTimeout(int $maxTimeout): self
+    {
+        $this->maxTimeout = $maxTimeout;
+
+        return $this;
+    }
+
     public function getRedirectUrl(?string $url): ?string
     {
         $result = null;
         if ($url) {
-            $options = array_merge(self::DEFAULT_OPTS, ['max_redirects' => 0]);
+            $options = array_merge($this->getDefaultOptions(), ['max_redirects' => 0]);
             $response = $this->httpClient->request(Request::METHOD_GET, $url, $options);
             $result = $response->getHeaders(false)['location'][0] ?? null;
         }
@@ -86,11 +84,11 @@ class KeitaroHttpClient
     private function buildOptions(string $method = Request::METHOD_GET, array $params = [], array $options = [], bool $isJson = false): array
     {
         $headers = array_merge(
-            self::DEFAULT_OPTS['headers'] ?? [],
+            $this->getDefaultOptions()['headers'] ?? [],
             $options['headers'] ?? [],
         );
 
-        $result = self::DEFAULT_OPTS;
+        $result = $this->getDefaultOptions();
         if (in_array($method, [Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH], true)) {
             if ($isJson) {
                 $result = array_merge($result, ['json' => $params]);
@@ -126,5 +124,19 @@ class KeitaroHttpClient
         }
 
         return $result;
+    }
+
+    private function getDefaultOptions(): array
+    {
+        return [
+            'headers' => [
+                'user-agent' => 'KHttpClient (playtini/keitaro-client)',
+                'accept' => 'application/json',
+            ],
+            'timeout' => $this->maxTimeout,
+            'max_duration' => $this->maxTimeout,
+            'verify_peer' => false,
+            'verify_host' => false,
+        ];
     }
 }
