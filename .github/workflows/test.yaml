@@ -10,12 +10,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   name: checkout
-                uses: actions/checkout@v3.1.0
+                uses: actions/checkout@v6
                 with:
                     fetch-depth: 1
 
             -   name: composer cache
-                uses: actions/cache@v2
+                uses: actions/cache@v5
                 with:
                     path: /tmp/composer-cache
                     key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
@@ -29,11 +29,11 @@ jobs:
                     args: '--ignore-platform-reqs --no-ansi --no-scripts --no-progress -o'
 
             -   name: phpunit
-                uses: php-actions/phpunit@v3
+                uses: php-actions/phpunit@v4
                 env:
                     XDEBUG_MODE: coverage
                 with:
-                    version: '9.5'
+                    version: '10.5'
                     php_version: '8.1'
                     configuration: phpunit.xml.dist
                     args: '--coverage-text --coverage-clover coverage.xml -dxdebug.mode=coverage'
