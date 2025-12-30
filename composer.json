@@ -6,8 +6,8 @@
     "license": "GPL-3.0-only",
     "require": {
         "php": "^8.1",
-        "symfony/http-client": "^6.1|^7.0",
-        "symfony/http-foundation": "^6.1|^7.0",
+        "symfony/http-client": "^6.1|^7.0|^8.0",
+        "symfony/http-foundation": "^6.1|^7.0|^8.0",
         "gupalo/dateutils": "^1.13",
         "psr/cache": "^3.0",
         "gupalo/json": "^1.0"
