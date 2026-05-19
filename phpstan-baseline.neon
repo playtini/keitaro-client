@@ -1,0 +1,763 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\KeitaroAdminApiClient\:\:botList\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/KeitaroAdminApiClient.php
+
+		-
+			message: '#^Parameter \#2 \$code of class RuntimeException constructor expects int, array\<string, array\|string\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: src/AdminApi/KeitaroAdminApiClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\AffiliateNetwork\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/AffiliateNetwork.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Campaign\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Campaign.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Domain\:\:__construct\(\) has parameter \$sslData with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Domain.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Domain\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Domain.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\EditorFilesCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/EditorFilesCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Filter\:\:__construct\(\) has parameter \$payload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Filter.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Filter\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Filter.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Filter\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Filter.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\FilterCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/FilterCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\FilterCollection\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/FilterCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Flow\:\:__construct\(\) has parameter \$actionOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Flow.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Flow\:\:__construct\(\) has parameter \$actionPayload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Flow.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Flow\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Flow.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\FlowObject\:\:__construct\(\) has parameter \$actionOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/FlowObject.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\FlowObject\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/FlowObject.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Group\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Group.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Landing\:\:__construct\(\) has parameter \$actionOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Landing.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Landing\:\:__construct\(\) has parameter \$actionPayload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Landing.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Landing\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Landing.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\LandingCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/LandingCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\LandingCollection\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/LandingCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\LandingFlow\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/LandingFlow.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\LandingFlowCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/LandingFlowCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\LandingFlowCollection\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/LandingFlowCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Offer\:\:__construct\(\) has parameter \$actionOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Offer.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Offer\:\:__construct\(\) has parameter \$actionPayload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Offer.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Offer\:\:__construct\(\) has parameter \$country with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Offer.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Offer\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Offer.php
+
+		-
+			message: '#^Parameter \$archive of class Playtini\\KeitaroClient\\AdminApi\\Model\\Offer constructor expects string, bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/AdminApi/Model/Offer.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\OfferCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/OfferCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\OfferCollection\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/OfferCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\OfferFlow\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/OfferFlow.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\OfferFlowCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/OfferFlowCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\OfferFlowCollection\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/OfferFlowCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\PlaceholderObject\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/PlaceholderObject.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Report\:\:__construct\(\) has parameter \$meta with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Report.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Report\:\:__construct\(\) has parameter \$rows with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Report.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Report\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Report.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\S2SPostback\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/S2SPostback.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\S2SPostbackCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/S2SPostbackCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\S2SPostbackCollection\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/S2SPostbackCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\SourceParameters\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/SourceParameters.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\TrafficSource\:\:__construct\(\) has parameter \$postbackStatuses with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/TrafficSource.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\TrafficSource\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/TrafficSource.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Trigger\:\:create\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/AdminApi/Model/Trigger.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\Trigger\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/Trigger.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\TriggerCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/TriggerCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\TriggerCollection\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/TriggerCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\User\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/User.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserAccessData\:\:__construct\(\) has parameter \$affiliateNetworksSelectedEntities with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserAccessData.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserAccessData\:\:__construct\(\) has parameter \$allowedResources with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserAccessData.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserAccessData\:\:__construct\(\) has parameter \$campaignsSelectedEntities with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserAccessData.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserAccessData\:\:__construct\(\) has parameter \$landingsSelectedEntities with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserAccessData.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserAccessData\:\:__construct\(\) has parameter \$offersSelectedEntities with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserAccessData.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserAccessData\:\:__construct\(\) has parameter \$reports with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserAccessData.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserAccessData\:\:__construct\(\) has parameter \$resources with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserAccessData.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserAccessData\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserAccessData.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserPreferences\:\:__construct\(\) has parameter \$other with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserPreferences.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Model\\UserPreferences\:\:create\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Model/UserPreferences.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\AbstractFilterRequest\:\:__construct\(\) has parameter \$columns with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/AbstractFilterRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\CampaignCostRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/CampaignCostRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\ClicksUpdateCostsPayload\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/ClicksUpdateCostsPayload.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\ClicksUpdateCostsPayloadCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/ClicksUpdateCostsPayloadCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\ClicksUpdateCostsPayloadCollection\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/ClicksUpdateCostsPayloadCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\ClicksUpdateCostsRequest\:\:__construct\(\) has parameter \$campaignIds with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/ClicksUpdateCostsRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\ClicksUpdateCostsRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/ClicksUpdateCostsRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\FilterCostRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/FilterCostRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\FilterFlowRequest\:\:__construct\(\) has parameter \$payload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/FilterFlowRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\FilterFlowRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/FilterFlowRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\FilterFlowRequestCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/FilterFlowRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\FilterFlowRequestCollection\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/FilterFlowRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\FilterRequest\:\:__construct\(\) has parameter \$expression with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/FilterRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\FilterRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/FilterRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\FilterRequestCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/FilterRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\FilterRequestCollection\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/FilterRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\LabelRequestPost\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/LabelRequestPost.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\LandingFlowRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/LandingFlowRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\LandingFlowRequestCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/LandingFlowRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\LandingFlowRequestCollection\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/LandingFlowRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\LandingRequest\:\:__construct\(\) has parameter \$actionPayload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/LandingRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\OfferFlowRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/OfferFlowRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\OfferFlowRequestCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/OfferFlowRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\OfferFlowRequestCollection\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/OfferFlowRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\OfferRequest\:\:__construct\(\) has parameter \$actionPayload with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/OfferRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\OfferRequest\:\:__construct\(\) has parameter \$country with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/OfferRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\RangeRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/RangeRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\ReportsRequest\:\:__construct\(\) has parameter \$grouping with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/ReportsRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\ReportsRequest\:\:__construct\(\) has parameter \$metrics with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/ReportsRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\ReportsRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/ReportsRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\SortRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/SortRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\SortRequestCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/SortRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\SortRequestCollection\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/SortRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\SourceRequest\:\:__construct\(\) has parameter \$postbackStatuses with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/SourceRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\TriggersFlowRequest\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/TriggersFlowRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\TriggersFlowRequestCollection\:\:__construct\(\) has parameter \$items with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/TriggersFlowRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\AdminApi\\Request\\TriggersFlowRequestCollection\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/AdminApi/Request/TriggersFlowRequestCollection.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroClickApiClient\:\:buildParams\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroClickApiClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroClickApiClient\:\:buildRequestOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroClickApiClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroClickApiResult\:\:__construct\(\) has parameter \$cookies with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroClickApiResult.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroClickApiResult\:\:__construct\(\) has parameter \$headers with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroClickApiResult.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroClickApiResult\:\:__construct\(\) has parameter \$log with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroClickApiResult.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroClickApiResult\:\:create\(\) has parameter \$item with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroClickApiResult.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroClickApiTokenResolver\:\:getCachedValue\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroClickApiTokenResolver.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroClickApiTokenResolver\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroClickApiTokenResolver.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroParams\:\:createFromQuery\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroParams.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroParams\:\:jsonSerialize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroParams.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroRequest\:\:__construct\(\) has parameter \$cookies with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroRequest\:\:__construct\(\) has parameter \$headers with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroRequest\:\:__construct\(\) has parameter \$query with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\ClickApi\\KeitaroRequest\:\:getQueryParamsWithoutSystemParams\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/ClickApi/KeitaroRequest.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:adminApiRequest\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:adminApiRequest\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:adminApiRequest\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:buildOptions\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:buildOptions\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:buildOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:clientApiRequest\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:clientApiRequest\(\) has parameter \$params with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:clientApiRequest\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:getDefaultOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:request\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClient\:\:request\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClient.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClientException\:\:__construct\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClientException.php
+
+		-
+			message: '#^Method Playtini\\KeitaroClient\\Http\\KeitaroHttpClientException\:\:getOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClientException.php
+
+		-
+			message: '#^Property Playtini\\KeitaroClient\\Http\\KeitaroHttpClientException\:\:\$options type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/Http/KeitaroHttpClientException.php

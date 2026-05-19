@@ -13,10 +13,10 @@ class KeitaroClickApiClientFactory
     }
 
     public function create(
-        KeitaroRequest $request = null,
-        KeitaroParams $params = null,
-        string $campaignToken = null,
-        int $maxTimeout = null,
+        ?KeitaroRequest $request = null,
+        ?KeitaroParams $params = null,
+        ?string $campaignToken = null,
+        ?int $maxTimeout = null,
     ): KeitaroClickApiClient {
         if ($request === null) {
             $request = KeitaroRequest::create(Request::createFromGlobals());

@@ -24,17 +24,24 @@ jobs:
                 uses: php-actions/composer@v6
                 with:
                     dev: yes
-                    php_version: '8.1'
+                    php_version: '8.4'
                     memory_limit: 512M
                     args: '--ignore-platform-reqs --no-ansi --no-scripts --no-progress -o'
+
+            -   name: phpstan
+                uses: php-actions/phpstan@v3
+                with:
+                    php_version: '8.4'
+                    configuration: phpstan.neon.dist
+                    memory_limit: '512M'
 
             -   name: phpunit
                 uses: php-actions/phpunit@v4
                 env:
                     XDEBUG_MODE: coverage
                 with:
-                    version: '10.5'
-                    php_version: '8.1'
+                    version: '13.1'
+                    php_version: '8.4'
                     configuration: phpunit.xml.dist
                     args: '--coverage-text --coverage-clover coverage.xml -dxdebug.mode=coverage'
                     memory_limit: '512M'

@@ -28,7 +28,7 @@ class KeitaroClickApiClient
     public function __construct(
         public readonly KeitaroHttpClient $keitaroHttpClient,
         private readonly KeitaroRequest $keitaroRequest,
-        KeitaroParams $params = null, // if you not campaign tokent here then don't forget to set it later: $client->params->set('token', 'YOUR_TOKEN')
+        ?KeitaroParams $params = null, // if you not campaign tokent here then don't forget to set it later: $client->params->set('token', 'YOUR_TOKEN')
 
     ) {
         $this->params = new ParameterBag(

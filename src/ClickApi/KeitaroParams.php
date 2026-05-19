@@ -42,7 +42,7 @@ class KeitaroParams implements \JsonSerializable
     ) {
     }
 
-    public static function createFromQuery(array $a, string $campaignToken = null): self
+    public static function createFromQuery(array $a, ?string $campaignToken = null): self
     {
         return new self(
             token: $campaignToken,
@@ -82,7 +82,7 @@ class KeitaroParams implements \JsonSerializable
         );
     }
 
-    public static function createFromKeitaroRequest(KeitaroRequest $keitaroRequest, string $campaignToken = null): self
+    public static function createFromKeitaroRequest(KeitaroRequest $keitaroRequest, ?string $campaignToken = null): self
     {
         return self::createFromQuery($keitaroRequest->query, $campaignToken);
     }
