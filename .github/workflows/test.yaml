@@ -10,12 +10,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   name: checkout
-                uses: actions/checkout@v6
+                uses: actions/checkout@v7
                 with:
                     fetch-depth: 1
 
             -   name: composer cache
-                uses: actions/cache@v5
+                uses: actions/cache@v6
                 with:
                     path: /tmp/composer-cache
                     key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
@@ -48,7 +48,7 @@ jobs:
                     php_extensions: xdebug mbstring
 
             -   name: codecov
-                uses: codecov/codecov-action@v5
+                uses: codecov/codecov-action@v7
                 with:
                     verbose: true
                     files: ./coverage.xml
